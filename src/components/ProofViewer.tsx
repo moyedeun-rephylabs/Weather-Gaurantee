@@ -167,7 +167,12 @@ export function ProofViewer() {
         </Button>
         <Button
           variant="secondary"
-          onClick={() => window.alert('Raw weather data would be shown here')}
+          onClick={() => {
+            const { lat, lng, timezone } = policy.destination;
+            const { start, end } = policy.dates;
+            const url = `https://archive-api.open-meteo.com/v1/archive?latitude=${lat}&longitude=${lng}&start_date=${start}&end_date=${end}&hourly=precipitation&timezone=${encodeURIComponent(timezone)}`;
+            window.open(url, '_blank');
+          }}
         >
           View Raw Weather Data
         </Button>
