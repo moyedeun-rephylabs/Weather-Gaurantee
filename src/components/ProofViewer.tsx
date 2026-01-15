@@ -170,7 +170,7 @@ export function ProofViewer() {
           onClick={() => {
             const { lat, lng, timezone } = policy.destination;
             const { start, end } = policy.dates;
-            const url = `https://open-meteo.com/en/docs/historical-weather-api#latitude=${lat}&longitude=${lng}&start_date=${start}&end_date=${end}&hourly=precipitation&timezone=${encodeURIComponent(timezone)}`;
+            const url = `https://open-meteo.com/en/docs/historical-weather-api?latitude=${lat}&longitude=${lng}&start_date=${start}&end_date=${end}&hourly=precipitation&timezone=${encodeURIComponent(timezone)}`;
             window.open(url, '_blank');
           }}
         >
