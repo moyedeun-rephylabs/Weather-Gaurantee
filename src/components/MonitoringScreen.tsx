@@ -86,23 +86,19 @@ export function MonitoringScreen() {
         </button>
       </div>
 
-      <Card className="mb-6">
-        <CardHeader className="flex flex-row items-center justify-between">
+      <Card className="mb-8">
+        <CardHeader className="flex flex-row items-center justify-between pb-6">
           <div>
-            <h2 className="text-lg font-semibold text-gray-900">
+            <h2 className="text-xl font-medium text-gray-900">
               {policy.destination.name}
             </h2>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-gray-500 mt-1">
               {formatDateRange(policy.dates.start, policy.dates.end)}
             </p>
           </div>
-          <div className="flex items-center gap-3 px-4 py-2 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-full border-2 border-blue-200 shadow-sm">
-            <span className="relative flex h-3 w-3">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-blue-500 shadow-sm"></span>
-            </span>
-            <span className="text-sm font-semibold text-blue-900 tracking-wide">MONITORING</span>
-          </div>
+          <Badge variant="secondary" className="text-xs font-medium px-3 py-1">
+            Monitoring
+          </Badge>
         </CardHeader>
         <CardContent>
           {loading ? (
@@ -124,29 +120,25 @@ export function MonitoringScreen() {
       </Card>
 
       {!loading && !error && (
-        <div className="space-y-4">
+        <div className="space-y-6">
           {conditionMet && (
-            <div className="relative overflow-hidden bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 border-2 border-green-300 rounded-xl p-6 shadow-lg">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-green-200 rounded-full -mr-16 -mt-16 opacity-30"></div>
-              <div className="absolute bottom-0 left-0 w-24 h-24 bg-emerald-200 rounded-full -ml-12 -mb-12 opacity-30"></div>
-              <div className="relative flex flex-col items-center gap-3">
-                <div className="flex items-center justify-center w-14 h-14 bg-green-500 rounded-full shadow-lg animate-bounce">
-                  <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+            <div className="border border-green-200 bg-green-50 rounded-lg p-6">
+              <div className="flex items-start gap-3">
+                <div className="flex-shrink-0 mt-0.5">
+                  <svg className="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
                     <path
                       fillRule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
                       clipRule="evenodd"
                     />
                   </svg>
                 </div>
-                <div className="text-center">
-                  <p className="text-xl font-bold text-green-900 mb-1">
-                    Condition Met!
+                <div>
+                  <p className="text-sm font-medium text-green-900 mb-1">
+                    Condition Met
                   </p>
-                  <p className="text-green-800 font-medium">
-                    You qualify for a{' '}
-                    <span className="text-2xl font-bold text-green-900">${policy.terms.payoutUSDC} USDC</span>{' '}
-                    payout
+                  <p className="text-sm text-green-800">
+                    You qualify for a <span className="font-semibold">${policy.terms.payoutUSDC} USDC</span> payout
                   </p>
                 </div>
               </div>
@@ -156,21 +148,12 @@ export function MonitoringScreen() {
           <Button
             onClick={handleSettle}
             size="lg"
-            className="w-full relative overflow-hidden group shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02]"
+            className="w-full"
           >
-            <span className="absolute inset-0 bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-            <span className="relative flex items-center justify-center gap-2">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
-              End Trip & Settle
-              <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </span>
+            End Trip & Settle
           </Button>
 
-          <p className="text-center text-xs text-gray-400">
+          <p className="text-center text-xs text-gray-500">
             In production, settlement happens automatically when your trip ends
           </p>
         </div>

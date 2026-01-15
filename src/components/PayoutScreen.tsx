@@ -13,110 +13,61 @@ export function PayoutScreen() {
   const { conditionMet, payoutAmount, weatherSummary } = outcome;
 
   return (
-    <div className="max-w-3xl mx-auto relative">
-      {/* Confetti Effect (CSS-only) */}
-      {conditionMet && (
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          {[...Array(20)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute w-2 h-2 rounded-full animate-confetti"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: '-5%',
-                backgroundColor: ['#10b981', '#3b82f6', '#8b5cf6', '#f59e0b'][i % 4],
-                animationDelay: `${i * 0.1}s`,
-                animationDuration: `${2 + Math.random() * 2}s`,
-              }}
-            />
-          ))}
-        </div>
-      )}
-
+    <div className="max-w-3xl mx-auto">
       {/* Hero Section */}
-      <Card className="mb-6 overflow-hidden shadow-lg">
+      <Card className="mb-12 overflow-hidden border border-gray-200">
         <div
-          className={`p-8 text-center relative ${
-            conditionMet
-              ? 'bg-gradient-to-br from-green-500 via-green-600 to-emerald-600'
-              : 'bg-gradient-to-br from-gray-500 to-gray-600'
+          className={`py-16 px-8 text-center ${
+            conditionMet ? 'bg-green-600' : 'bg-gray-100'
           }`}
         >
           {conditionMet ? (
             <>
-              <div className="text-7xl font-bold mb-3 text-white tracking-tight drop-shadow-lg">
+              <div className="text-6xl font-semibold mb-4 text-white tracking-tight">
                 $500.00
               </div>
-              <p className="text-xl text-white/95 font-semibold tracking-wide">
+              <p className="text-lg text-white/90">
                 USDC deposited to your wallet
               </p>
             </>
           ) : (
             <>
-              <div className="text-4xl text-white mb-4 font-semibold">Weather condition not met</div>
-              <p className="text-lg text-white/80">
+              <div className="text-3xl text-gray-900 mb-3 font-medium">Weather condition not met</div>
+              <p className="text-base text-gray-600">
                 Your ${policy.terms.premiumUSDC} premium stays in the pool
               </p>
             </>
           )}
         </div>
-        <CardContent className="py-6 bg-gradient-to-b from-gray-50 to-white">
-          <div className="flex justify-center gap-3 flex-wrap">
-            {conditionMet && (
-              <>
-                <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-bold bg-green-600 text-white shadow-md">
-                  ⚡ Automatic
-                </span>
-                <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-bold bg-blue-600 text-white shadow-md">
-                  🚀 Instant
-                </span>
-                <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-bold bg-purple-600 text-white shadow-md">
-                  ✓ Verifiable
-                </span>
-              </>
-            )}
-            {!conditionMet && (
-              <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-bold bg-gray-600 text-white shadow-md">
-                Settlement Complete
-              </span>
-            )}
-          </div>
-        </CardContent>
+        {conditionMet && (
+          <CardContent className="py-5 bg-white border-t border-gray-200">
+            <div className="flex justify-center gap-4 text-sm text-gray-600">
+              <span>Automatic</span>
+              <span className="text-gray-300">•</span>
+              <span>Instant</span>
+              <span className="text-gray-300">•</span>
+              <span>Verifiable</span>
+            </div>
+          </CardContent>
+        )}
       </Card>
 
-      <style>{`
-        @keyframes confetti {
-          0% {
-            transform: translateY(0) rotate(0deg);
-            opacity: 1;
-          }
-          100% {
-            transform: translateY(100vh) rotate(720deg);
-            opacity: 0;
-          }
-        }
-        .animate-confetti {
-          animation: confetti linear forwards;
-        }
-      `}</style>
-
       {/* Trip Summary */}
-      <Card className="mb-6 shadow-md">
-        <CardHeader className="bg-gradient-to-r from-slate-50 to-transparent">
+      <Card className="mb-8 border border-gray-200">
+        <CardHeader className="border-b border-gray-100">
           <div className="flex justify-between items-start">
             <div>
-              <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                <span className="text-xl">📍</span>
+              <h2 className="text-base font-medium text-gray-900">
                 {policy.destination.name}
               </h2>
-              <p className="text-sm text-gray-500 ml-7">
+              <p className="text-sm text-gray-500 mt-1">
                 {formatDateRange(policy.dates.start, policy.dates.end)}
               </p>
             </div>
-            <span className={`inline-flex items-center px-3 py-1.5 rounded-full text-sm font-bold shadow-sm ${
+            <span className={`px-3 py-1 rounded text-xs font-medium ${
               conditionMet
-                ? 'bg-green-600 text-white'
-                : 'bg-gray-600 text-white'
+                ? 'bg-green-50 text-green-700 border border-green-200'
+                : 'bg-gray-100 text-gray-600 border border-gray-200'
             }`}>
               {outcome.rainDays} of {outcome.threshold} rain days
             </span>
@@ -130,65 +81,46 @@ export function PayoutScreen() {
         </CardContent>
       </Card>
 
-      {/* Outcome Details */}
-      <Card className="mb-6 shadow-md border-l-4 border-l-blue-500">
-        <CardHeader className="bg-gradient-to-r from-blue-50 to-transparent">
-          <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-            <span className="text-2xl">📊</span>
+      {/* Settlement Details */}
+      <Card className="mb-8 border border-gray-200">
+        <CardHeader className="border-b border-gray-100">
+          <h2 className="text-base font-medium text-gray-900">
             Settlement Details
           </h2>
         </CardHeader>
         <CardContent>
           <dl className="grid grid-cols-2 gap-6">
-            <div className="bg-gradient-to-br from-amber-50 to-orange-50 p-4 rounded-lg border border-amber-200">
-              <dt className="text-sm font-medium text-amber-700 flex items-center gap-1.5 mb-1">
-                <span>💰</span>
+            <div className="space-y-1">
+              <dt className="text-sm text-gray-500">
                 Premium Paid
               </dt>
-              <dd className="text-2xl font-bold text-amber-900">
+              <dd className="text-2xl font-medium text-gray-900">
                 {formatUSDC(policy.terms.premiumUSDC)}
               </dd>
             </div>
-            <div className={`p-4 rounded-lg border ${
-              conditionMet
-                ? 'bg-gradient-to-br from-green-50 to-emerald-50 border-green-200'
-                : 'bg-gradient-to-br from-gray-50 to-slate-50 border-gray-200'
-            }`}>
-              <dt className={`text-sm font-medium flex items-center gap-1.5 mb-1 ${
-                conditionMet ? 'text-green-700' : 'text-gray-700'
-              }`}>
-                <span>{conditionMet ? '✅' : '📭'}</span>
+            <div className="space-y-1">
+              <dt className="text-sm text-gray-500">
                 Payout Received
               </dt>
-              <dd className={`text-2xl font-bold ${
-                conditionMet ? 'text-green-900' : 'text-gray-900'
+              <dd className={`text-2xl font-medium ${
+                conditionMet ? 'text-green-600' : 'text-gray-900'
               }`}>
                 {formatUSDC(payoutAmount)}
               </dd>
             </div>
-            <div className="bg-gradient-to-br from-blue-50 to-sky-50 p-4 rounded-lg border border-blue-200">
-              <dt className="text-sm font-medium text-blue-700 flex items-center gap-1.5 mb-1">
-                <span>🎯</span>
+            <div className="space-y-1">
+              <dt className="text-sm text-gray-500">
                 Rain Days Required
               </dt>
-              <dd className="text-2xl font-bold text-blue-900">
+              <dd className="text-2xl font-medium text-gray-900">
                 {outcome.threshold}+ days
               </dd>
             </div>
-            <div className={`p-4 rounded-lg border ${
-              outcome.rainDays >= outcome.threshold
-                ? 'bg-gradient-to-br from-purple-50 to-violet-50 border-purple-200'
-                : 'bg-gradient-to-br from-slate-50 to-gray-50 border-slate-200'
-            }`}>
-              <dt className={`text-sm font-medium flex items-center gap-1.5 mb-1 ${
-                outcome.rainDays >= outcome.threshold ? 'text-purple-700' : 'text-slate-700'
-              }`}>
-                <span>🌧️</span>
+            <div className="space-y-1">
+              <dt className="text-sm text-gray-500">
                 Actual Rain Days
               </dt>
-              <dd className={`text-2xl font-bold ${
-                outcome.rainDays >= outcome.threshold ? 'text-purple-900' : 'text-slate-900'
-              }`}>
+              <dd className="text-2xl font-medium text-gray-900">
                 {outcome.rainDays} days
               </dd>
             </div>
@@ -197,7 +129,7 @@ export function PayoutScreen() {
       </Card>
 
       {/* Actions */}
-      <div className="space-y-3">
+      <div className="space-y-3 mb-12">
         <Button
           onClick={() => setScreen('proof')}
           variant="secondary"
@@ -218,23 +150,20 @@ export function PayoutScreen() {
 
       {/* Key Message */}
       {conditionMet && (
-        <div className="mt-10 relative">
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500 rounded-2xl opacity-10 blur-xl"></div>
-          <div className="relative bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 rounded-2xl p-8 text-center shadow-2xl border border-blue-400/20">
-            <div className="text-4xl mb-4 opacity-50">✨</div>
-            <blockquote className="space-y-3">
-              <p className="text-2xl font-bold text-white leading-relaxed tracking-tight">
+        <div className="mt-16 mb-8">
+          <div className="bg-gray-50 rounded-lg p-12 text-center border border-gray-200">
+            <blockquote className="space-y-4">
+              <p className="text-xl font-medium text-gray-900">
                 "If it rains, you get paid"
               </p>
-              <div className="w-16 h-1 bg-gradient-to-r from-blue-400 to-purple-400 mx-auto rounded-full"></div>
-              <p className="text-lg text-blue-100 font-medium">
+              <p className="text-base text-gray-600">
                 is not a promise from a company.
               </p>
-              <p className="text-xl text-white font-semibold">
+              <p className="text-base text-gray-900">
                 It's a physical law of the system.
               </p>
             </blockquote>
-            <div className="mt-6 text-xs text-blue-300/60 uppercase tracking-widest font-semibold">
+            <div className="mt-8 text-xs text-gray-400 uppercase tracking-wide font-medium">
               Powered by Delta Cryptographic Guarantees
             </div>
           </div>
