@@ -96,7 +96,7 @@ export function MonitoringScreen() {
               {formatDateRange(policy.dates.start, policy.dates.end)}
             </p>
           </div>
-          <Badge variant="secondary" className="text-xs font-medium px-3 py-1">
+          <Badge variant="default" className="text-xs font-medium px-3 py-1">
             Monitoring
           </Badge>
         </CardHeader>

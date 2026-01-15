@@ -21,7 +21,7 @@ const INITIAL_STEPS: SettlementStep[] = [
 export function SettlementScreen() {
   const { policy, startSettlement, completeSettlement, setScreen } = usePolicyStore();
   const [steps, setSteps] = useState<SettlementStep[]>(INITIAL_STEPS);
-  const [currentStep, setCurrentStep] = useState(0);
+  const [, setCurrentStep] = useState(0);
 
   useEffect(() => {
     if (!policy) return;
